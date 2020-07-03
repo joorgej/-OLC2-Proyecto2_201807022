@@ -1291,7 +1291,7 @@ def analizar(texto):
 
 
 input = 'int a = 3; int b=a*a+a-2*a/(3-a)*(-1); void juas(){int i = 1; int a = 0; while(i){a += 1; if(a>10){i = 0;}}} int main(){ int j = 0; if(a) {j = 3;}} '
-f = open("C:\\Users\\Jorge\\Documents\\proyectos\\OLC2\\[OLC2]Proyecto2_201807022\\Pruebas\\prueba.mc", "r")
+f = open("C:\\Users\\Jorge\\Documents\\proyectos\\OLC2\\[OLC2]Proyecto2_201807022\\Pruebas\\structs.mc", "r")
 input = 'int main(){int a; if(1>2){a = 3;}else if(3*6>2){a = 100;} else if(3>2){a = 900000;} else{a = 3000;}  if(a == 3){char po = \'a\';}}'
 input = 'int main(){int a = 1; if(a>0){printf("hola"); a = 4;}else{printf("adio");} }'
 input = f.read()

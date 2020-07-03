@@ -1,0 +1,75 @@
+main:
+	$ra = array();
+	goto _main_;
+
+_main_:
+	goto inicio;
+
+inicio:
+	print("Ingrese el primer numero:\n");
+	$t0 = read();
+	$t1 = $t0;
+	print("\n");
+	print("Ingrese el segundo numero:\n");
+	$t2 = read();
+	$t3 = $t2;
+	print("\n");
+	print("Que opcion desea realizar?\n");
+	print("+, -, *, /\n");
+	$t4 = read();
+	$t5 = $t4;
+	print("\n");
+	$t6 = $t5=="+";
+	if (!$t6) goto if0;
+	$t7 = $t1+$t3;
+	print("El resultado de la suma es: ");
+	print($t7);
+	print("\n");
+	goto if3;
+
+if0:
+	$t8 = $t5=="-";
+	if (!$t8) goto if1;
+	$t9 = $t1-$t3;
+	print("El resultado de la resta es: ");
+	print($t9);
+	print("\n");
+	goto if3;
+
+if1:
+	$t10 = $t5=="*";
+	if (!$t10) goto if2;
+	$t11 = $t1*$t3;
+	print("El resultado de la multiplicacion es: ");
+	print($t11);
+	print("\n");
+	goto if3;
+
+if2:
+	$t12 = $t5=="/";
+	if (!$t12) goto if3;
+	$t13 = $t1/$t3;
+	print("El resultado de la division es: ");
+	print($t13);
+	print("\n");
+	goto if3;
+
+if3:
+	print("¿Deseas continuar? Y/N\n");
+	$t14 = read();
+	$t15 = $t14;
+	$t16 = $t15=="Y";
+	$t17 = $t15=="y";
+	$t18 = $t16||$t17;
+	if (!$t18) goto if4;
+	print("\n");
+	goto inicio;
+	goto if5;
+
+if4:
+	print("Adios\n");
+	goto if5;
+
+if5:
+	exit;
+

@@ -33,3 +33,14 @@ class TablaSimbolos():
 
     def delete(self, key):
         self.simbolos[key].pop(0)
+
+    def graph(self):
+        lineas = 'NO --- NOMBRE --- REGISTRO\n'
+        cont = 1
+        for simb in self.simbolos:
+            for simbol in self.simbolos[simb]:
+                lineas += str(cont)+' --- '+str(simb)+str(simbol.index)+' --- '+simbol.name+'\n'
+                cont += 1
+        lineas = lineas[:-1]+'}'
+        return lineas
+        

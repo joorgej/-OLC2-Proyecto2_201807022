@@ -25,7 +25,7 @@ import Reporteria.ReporteAST as ReporteAST
 import ValorImplicito.Asignacion as Asignacion
 import ValorImplicito.Conversion as Conversion
 import Reporteria.ReporteGramatical as ReporteGramatical
-from minorC import analizar
+from minorC import analizar, getGrammar, graphGrammar, getSimbols, graphSimbolos
 
 class MyLexer(QsciLexerCustom):
     def __init__(self, parent):
@@ -377,17 +377,14 @@ class Ui_MainWindow(object):
         reporteAST.graficar(self.instrucciones)
 
     def generarTabla(self):
-        reporteTablas = ReporteTablaSimbolos.ReporteTablaSimbolos()
-        reporteTablas.generarReporte(self.ts_global,self.ast)
+        graphSimbolos(self.simbolos) 
 
     def generarRErrores(self):
         reporteErrores = ReporteErrores.ReporteErrores()
         reporteErrores.generarReporte()
 
     def generarRGramatical(self):
-        listado = self.listado_gramatical 
-        reporteGramatical = ReporteGramatical.ReporteGramatical()
-        reporteGramatical.generarReporte(listado[0])
+        graphGrammar(self.gramatica) 
 
     def debugger(self):
         self.tableWidget.setRowCount(0)
@@ -403,8 +400,11 @@ class Ui_MainWindow(object):
             self.consola.clear()
             ReporteErrores.func(None,True)
             g.func(0,None)
-            g.textoEntrada = self.editor.text()
-            instrucciones = g.parse(self.editor.text())
+            texto = analizar(self.editor.text())
+            self.gramatica = getGrammar()
+            self.simbolos = getSimbols()
+            g.textoEntrada = texto
+            instrucciones = g.parse(texto)
             self.instrucciones = instrucciones
             ts_global = TS.Entorno(None)
             ast = AST.AST(instrucciones) 
@@ -511,6 +511,8 @@ class Ui_MainWindow(object):
         ReporteErrores.func(None,True)
         texto = analizar(self.editor.text())
         g.textoEntrada = texto
+        self.gramatica = getGrammar()
+        self.simbolos = getSimbols()
         g.func(0,None)
         instrucciones = g.parse(texto)
         self.instrucciones = instrucciones
@@ -651,7 +653,7 @@ class Ui_MainWindow(object):
         if(self.ruta_archivo==None):
             root = tk.Tk()
             root.withdraw()
-            ruta = filedialog.asksaveasfilename(title="Seleccione la ruta donde desea guardar el Archivo",filetypes=[('all files', '.*'), ('text files', '.txt')])
+            ruta = filedialog.asksaveasfilename(title="Seleccione la ruta donde desea guardar el Archivo",filetypes=[('all files', '.*'), ('minor-c files', '.mc')])
         else:
             ruta = self.ruta_archivo
         if not ruta: return
@@ -677,7 +679,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "IDE AUGUS - HAROLDO PABLO ARIAS MOLINA - 201020247"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "IDE MINOR-C - JORGE DANIEL JUAREZ ALDANA - 201807022"))
         #self.consola.setText(_translate("MainWindow", ""))
         self.menuArchivo.setTitle(_translate("MainWindow", "Archivo"))
         self.menuPrograma.setTitle(_translate("MainWindow", "Programa"))

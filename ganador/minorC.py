@@ -5,6 +5,7 @@ from tablaSimbolos import *
 from instruction import *
 from traductor import *
 from functions import *
+from graphviz import Graph
 
 '''/////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////        FUNCIONES         /////////////////////////////////////////
@@ -14,6 +15,7 @@ functions = {}
 actualFunction = ''
 callIndex = -1
 functionCallIndex = 0
+inMain = False
 
 def addFunction(function):
     global functions
@@ -82,7 +84,7 @@ gramatica = ''
 
 def addProduction(prod):
     global gramatica
-    gramatica = prod + gramatica
+    gramatica = prod +'\n'+ gramatica
 
 '''/////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////        INDICES         ////////////////////////////////////////
@@ -168,6 +170,7 @@ def addLabel(label):
 ////////////////////////////////////////////////////////////////////////////////////////////////////////'''
 
 ts = TablaSimbolos()
+ts2 = TablaSimbolos()
 scope = [[]]
 actualIndex = 0
 
@@ -189,10 +192,13 @@ def deleteScope():
 def addScope(key, name, val, dim = None):
     scope[actualIndex] = scope[actualIndex]+[key]
     ts.add(key, name, val, dim)
+    ts2.add(key, name, val, dim)
 
 def addGlobal(key, name, val):
     scope[0] = scope[0]+[key]
     ts.add(key, name, val)
+    ts2.add(key, name, val)
+    
 
 '''/////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////        TOKENS         /////////////////////////////////////////
@@ -415,7 +421,7 @@ def p_init(t):
         if len(functions[func].calls) != 0:
             addLabel(Label(functions[func].return_call, []))
             for call in functions[func].calls:
-                addInstruction(If('$ra['+str(cont)+'] == '+str(call.index), call.label))
+                addInstruction(If('$ra['+str(getFunctionCallIndex(func))+'] == '+str(call.index), call.label))
             cont += 1
         
 
@@ -472,6 +478,8 @@ def p_new_label(t):
     if t[-1]=='main':
         addInstructionMain(Goto('_main_'))
         addLabel(Label('_main_', []))
+        global inMain
+        inMain = True
     else:
         addLabel(Label(t[-1], []))
 
@@ -628,14 +636,26 @@ def p_instruction_expression(t):
 def p_instruction_null(t):
     'instruction                : PUNTO_COMA'
     addProduction('instruction → PUNTO_COMA')
+
+def p_instruction_error(t):
+    'instruction                : error PUNTO_COMA'
+
+def p_instruction_error2(t):
+    'instruction                : error BRA_DER'
     
 def p_declarations(t):
     'declarations               : declarations declaration PUNTO_COMA'
     addProduction('declarations → declarations declaration PUNTO_COMA')
+
+def p_declarations_error(t):
+    'declarations               : declarations error PUNTO_COMA'
     
 def p_declarations_end(t):
     'declarations               : declaration PUNTO_COMA'
     addProduction('declarations → declaration PUNTO_COMA')
+
+def p_declarations_error_end(t):
+    'declarations               : error PUNTO_COMA'
     
 def p_declaration(t):
     'declaration                : primitive_type declaration_list'
@@ -978,17 +998,21 @@ def p_continue(t):
 def p_return(t):
     'return                     : RETURN expression'
     addProduction('return → RETURN expression')
-    t[0] = getReturn()
-    addInstruction(Set(t[0], '', t[2], None))
-    global actualFunction
-    addInstruction(Goto(getCallReturn(actualFunction)))
+    global inMain
+    if not inMain:
+        t[0] = getReturn()
+        addInstruction(Set(t[0], '', t[2], None))
+        global actualFunction
+        addInstruction(Goto(getCallReturn(actualFunction)))
 
 
 def p_return_empty(t):
     'return                     : RETURN'
     addProduction('return → RETURN')
-    global actualFunction
-    addInstruction(Goto(getCallReturn(actualFunction)))
+    global inMain
+    if not inMain:
+        global actualFunction
+        addInstruction(Goto(getCallReturn(actualFunction)))
 
 def p_function_call(t):
     'function_call              : ID param_val'
@@ -1280,8 +1304,39 @@ def p_decrease_post(t):
     addInstruction(Set(t[1], '-', t[1], '1'))
 
 def p_error(t):
-    #print('ERROR SINTACTICO: El simbolo "' + str(t.value) + '", identificador como '+str(t.type)+', no era el esperado en la linea '+ str(t.lineno) +'.\n')
-    print(t)
+    print('ERROR SINTACTICO: El simbolo "' + str(t.value) + '", identificador como '+str(t.type)+', no era el esperado en la linea '+ str(t.lineno) +'.\n')
+
+def getGrammar():
+    global gramatica
+    return gramatica
+
+def graphGrammar(gramatica):
+    if gramatica != None:
+        dot = Graph()
+        dot.attr(splines = 'false')
+        dot.node_attr.update(shape = 'record')
+        dot.node_attr.update(center = 'false')
+        dot.node(str(0), '{'+ gramatica.replace('\n', '\\l |')[:-1] +'}')
+        try:
+            dot.view()
+        except:
+            print('ERROR: No fue posible realizar el reporte gramatical por algun error desconocido.')
+
+def graphSimbolos(gramatica):
+    if gramatica != None:
+        dot = Graph()
+        dot.attr(splines = 'false')
+        dot.node_attr.update(shape = 'record')
+        dot.node_attr.update(center = 'true')
+        dot.node(str(0), '{'+ gramatica.replace('\n', '|')[:-1] +'}')
+        try:
+            dot.view()
+        except:
+            print('ERROR: No fue posible realizar el reporte gramatical por algun error desconocido.')
+
+def getSimbols():
+    global ts2
+    return ts2.graph()
 
 def analizar(texto):
     global functions
@@ -1318,10 +1373,15 @@ def analizar(texto):
     ifLabels = []
     global ts
     ts = TablaSimbolos()
+    global ts2
+    ts2 = TablaSimbolos()
     global scope
     scope = [[]]
     global actualIndex
     actualIndex = 0
+    global inMain
+    inMain = False
+
 
     try:
         lexer = lex.lex()
@@ -1329,7 +1389,9 @@ def analizar(texto):
         parser = yacc.yacc() 
         parser.parse(texto)  
         salida = traduce(labels)
-        print('tamaño labels: '+str(len(labels)))
+        f = open ('codigo3D.txt','w')
+        f.write(salida)
+        f.close()
         return salida
     except:
         print('ERROR NO CONTROLADO: A ocurrido un problema en el analisis lexico y sintactico. \n                   Para recivir soporte pongase en contacto con siguiente correo: jorgejuarezdal→gmail.com')
@@ -1337,9 +1399,10 @@ def analizar(texto):
 
 
 input = 'int a = 3; int b=a*a+a-2*a/(3-a)*(-1); void juas(){int i = 1; int a = 0; while(i){a += 1; if(a>10){i = 0;}}} int main(){ int j = 0; if(a) {j = 3;}} '
-f = open("C:\\Users\\Jorge\\Documents\\proyectos\\OLC2\\[OLC2]Proyecto2_201807022\\Pruebas\\prueba.mc", "r")
+f = open("C:\\Users\\Jorge\\Documents\\proyectos\\OLC2\\[OLC2]Proyecto2_201807022\\Pruebas\\structs.mc", "r")
 input = 'int main(){int a; if(1>2){a = 3;}else if(3*6>2){a = 100;} else if(3>2){a = 900000;} else{a = 3000;}  if(a == 3){char po = \'a\';}}'
-input = 'int main(){int a = 1; if(a>0){printf("hola"); a = 4;}else{printf("adio");} }'
-input = f.read()
-analizar(input)
-print(traduce(labels))
+input = 'int main(){ int a = 0; int b = scanf(); do{printf("TELLO SEX MUCHAS VECES!!!\n"); a++;}while(a<b); }'
+#input = f.read()
+#analizar(input)
+#print(traduce(labels))
+#graphGrammar(gramatica)

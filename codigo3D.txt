@@ -1,0 +1,539 @@
+main:
+	$ra = array();
+	$t0 = 1;
+	$t1 = 0;
+	$a0 = 0;
+	$a1 = 0;
+	goto _main_;
+
+Declaracion:
+	print("========= Metodo Declaracion =========\n");
+	$t2 = 2;
+	$t3 = 0.0;
+	$t4 = $t3;
+	$t5 = 's';
+	$t6 = $t4==$t3;
+	if (!$t6) goto if0;
+	print("Declaraciones Bien :D\n");
+	$t7 = $t1+5;
+	$t1 = $t7;
+	goto if1;
+
+if0:
+	print("Problemas en el metodo declaracion :(\n");
+	goto if1;
+
+if1:
+	print("======================================\n");
+	goto Declaracion_return_call;
+
+operacionesBasicas:
+	print("Operaciones Aritmeticas 1: valor esperado:  \na)62   \nb)0   \nc)-19   \nd)256   \nresultados:\n");
+	$t8 = 20-10;
+	$t9 = 8/2;
+	$t10 = $t9*3;
+	$t11 = $t8+$t10;
+	$t12 = $t11+10;
+	$t13 = $t12-10;
+	$t14 = $t13-10;
+	$t15 = $t14+50;
+	$t16 = $t15;
+	$t17 = (int)$t16;
+	$t18 = $t17;
+	$t19 = 50/50;
+	$t20 = $t19*50;
+	$t21 = $t20+50;
+	$t22 = $t21-100;
+	$t23 = $t22+100;
+	$t24 = $t23-100;
+	$t25 = $t24;
+	$t26 = (int)$t25;
+	$t27 = $t26;
+	$t28 = 100/20;
+	$t29 = $t28*9;
+	$t30 = $t29-78;
+	$t31 = $t30+6;
+	$t32 = $t31-7;
+	$t33 = $t32+8;
+	$t34 = $t33-7;
+	$t35 = 7*1;
+	$t36 = $t35*2;
+	$t37 = $t36*3;
+	$t38 = $t37/3;
+	$t39 = $t34+$t38;
+	$t40 = $t39;
+	$t41 = (int)$t40;
+	$t42 = $t41;
+	print("a) ");
+	print($t18);
+	print("\n");
+	print("b) ");
+	print($t27);
+	print("\n");
+	print("c) ");
+	print($t42);
+	print("\n");
+	$t43 = $t18==62;
+	$t44 = $t27==0;
+	$t45 = $t43&&$t44;
+	$t46 = -19;
+	$t47 = $t42==$t46;
+	$t48 = $t45&&$t47;
+	if (!$t48) goto if2;
+	print("Operaciones aritmeticas 1 bien :D\n");
+	$t49 = $t1+5;
+	$t1 = $t49;
+	goto if3;
+
+if2:
+	print("Error en las operaciones basicas :(\n");
+	goto if3;
+
+if3:
+	goto operacionesBasicas_return_call;
+
+operacionesAvanzadas:
+	$t50 = 2;
+	$t51 = -10;
+	$t52 = $t51;
+	print("Operaciones Aritmeticas 2:\n valor esperado:\n -20  2.0\n resultado:\n");
+	$t53 = $t52*$t50;
+	$t54 = $t53;
+	print("");
+	print($t54);
+	print("  ");
+	$t55 = $t54/$t50;
+	$t56 = 50/50;
+	$t57 = $t55+$t56;
+	$t58 = 50*2;
+	$t59 = $t57+$t58;
+	$t60 = $t59-100;
+	$t61 = 100/100;
+	$t62 = $t60+$t61;
+	$t63 = $t62-0;
+	$t64 = $t63;
+	print("");
+	print($t64);
+	print("\n");
+	$t65 = -20;
+	$t66 = $t54==$t65;
+	$t67 = -8.0;
+	$t68 = $t64==$t67;
+	$t69 = $t66&&$t68;
+	if (!$t69) goto if4;
+	print("Operaciones aritmeticas 2 bien :D\n");
+	$t70 = $t1+5;
+	$t1 = $t70;
+	goto if5;
+
+if4:
+	print("Error Operaciones Aritmeticas :c\n");
+	goto if5;
+
+if5:
+	goto operacionesAvanzadas_return_call;
+
+Aritmeticas:
+	print("==============Aritmeticas=============\n");
+	$t71 = 0.0+1;
+	$t72 = $t71+1;
+	$t73 = $t72+1;
+	$t74 = $t73+0.1;
+	$t75 = $t74+49;
+	$t76 = $t75;
+	print("El valor de  n1 = ");
+	print($t76);
+	print("\n");
+	$t77 = $t76==52.1;
+	if (!$t77) goto if6;
+	$t78 = $t1+5;
+	$t1 = $t78;
+	goto if7;
+
+if6:
+	print("Perdiste 5 puntos en suma de enteros y decimales :c\n");
+	goto if7;
+
+if7:
+	$t79 = 5750*2;
+	$t80 = $t79-11800;
+	$t81 = $t80+1.0;
+	$t82 = $t81;
+	$t83 = 3*3;
+	$t84 = $t83+4;
+	$t85 = $t84-80;
+	$t86 = 40.00*2;
+	$t87 = $t85+$t86;
+	$t88 = $t87+358.50;
+	$t89 = 29/14.50;
+	$t90 = $t88-$t89;
+	$t91 = $t90-0.50;
+	$t92 = $t91+$t82;
+	$t93 = $t92;
+	print("El valor de n3 = ");
+	print($t93);
+	print("\n");
+	$t94 = $t93==70;
+	if (!$t94) goto if8;
+	$t95 = $t1+3;
+	$t1 = $t95;
+	goto if9;
+
+if8:
+	print("Perdiste 3 puntos :c\n");
+	goto if9;
+
+if9:
+	$ra[1] = 0;
+	goto operacionesBasicas;
+
+operacionesBasicas_call_0:
+	$ra[2] = 1;
+	goto operacionesAvanzadas;
+
+operacionesAvanzadas_call_0:
+	print("======================================\n");
+	goto Aritmeticas_return_call;
+
+Logicas2:
+	$t96 = 16;
+	print("==============Logicas2=============\n");
+	$t97 = $t96==16;
+	$t98 = 0==1;
+	$t99 = $t97&&$t98;
+	$t100 = !$t99;
+	$t101 = !1;
+	$t102 = $t100&&$t101;
+	$t103 = !$t102;
+	if (!$t103) goto if10;
+	print("Not y Ands Correctos\n");
+	$t104 = $t1+3;
+	$t1 = $t104;
+	goto if11;
+
+if10:
+	print("No funcionan nots y ands :(\n");
+	goto if11;
+
+if11:
+	$t105 = $t96/16;
+	$t106 = $t105;
+	$t107 = $t106+1;
+	$t106 = $t107;
+	$t108 = $t106!=2;
+	$t109 = $t108;
+	$t110 = $t96/16;
+	$t111 = $t110+0;
+	$t112 = $t111;
+	$t113 = $t112==$t106;
+	$t114 = $t113;
+	$t115 = !1;
+	$t116 = $t115;
+	$t117 = $t109||$t114;
+	$t118 = !$t117;
+	$t119 = $t118||$t116;
+	$t120 = !$t119;
+	$t121 = !$t120;
+	if (!$t121) goto if12;
+	print("Nots y Ors correctos\n");
+	$t122 = $t1+3;
+	$t1 = $t122;
+	goto if13;
+
+if12:
+	print("No Funciona nots y ands :(\n");
+	goto if13;
+
+if13:
+	print("======================================\n");
+	goto Logicas2_return_call;
+
+BitABit:
+	$t123 = 16;
+	print("==============Bit a Bit=============\n");
+	$t124 = $t123&$t123;
+	$t125 = $t124;
+	$t126 = $t125==16;
+	if (!$t126) goto if14;
+	print("AND Bit a Bit bien\n");
+	$t127 = $t1+1;
+	$t1 = $t127;
+	goto if15;
+
+if14:
+	print("AND Bit a Bit mal\n");
+	goto if15;
+
+if15:
+	$t128 = ~30;
+	$t129 = 51|$t128;
+	$t125 = $t129;
+	$t130 = $t125^60;
+	$t131 = $t130^70;
+	$t132 = $t131^32;
+	$t133 = $t132;
+	$t134 = -87;
+	$t135 = $t133==$t134;
+	if (!$t135) goto if16;
+	print("OR, NOT, XOR Bit a Bit bien\n");
+	$t136 = $t1+3;
+	$t1 = $t136;
+	goto if17;
+
+if16:
+	print("OR, NOT, XOR Bit a Bit mal\n");
+	goto if17;
+
+if17:
+	print("======================================\n");
+	goto BitABit_return_call;
+
+Logicas:
+	print("==============Logicas1=============\n");
+	$t137 = !1;
+	$t138 = !$t137;
+	$t139 = !$t138;
+	$t140 = !$t139;
+	$t141 = !$t140;
+	$t142 = !$t141;
+	$t143 = !$t142;
+	$t144 = !$t143;
+	$t145 = !$t144;
+	$t146 = !$t145;
+	$t147 = !$t146;
+	$t148 = !$t147;
+	$t149 = !$t148;
+	$t150 = !$t149;
+	$t151 = !$t150;
+	$t152 = !$t151;
+	$t153 = !$t152;
+	$t154 = !$t153;
+	$t155 = !$t154;
+	$t156 = !$t155;
+	$t157 = !$t156;
+	$t158 = !$t157;
+	if (!$t158) goto if18;
+	$t159 = $t1+1;
+	$t1 = $t159;
+	print("Bien primera condicion :)\n");
+	goto if19;
+
+if18:
+	print("Perdiste 1 punto :c\n");
+	goto if19;
+
+if19:
+	$t160 = 1&&1;
+	$t161 = 0&&0;
+	$t162 = $t161&&0;
+	$t163 = $t160||$t162;
+	$t164 = !1;
+	$t165 = $t163||$t164;
+	if (!$t165) goto if20;
+	$t166 = $t1+1;
+	$t1 = $t166;
+	print("Bien segunda condicion :)\n");
+	goto if21;
+
+if20:
+	print("Mal segunda condicion :c\n");
+	goto if21;
+
+if21:
+	print("======================================\n");
+	$ra[4] = 0;
+	goto Logicas2;
+
+Logicas2_call_0:
+	$ra[5] = 1;
+	goto BitABit;
+
+BitABit_call_0:
+	goto Logicas_return_call;
+
+relaciones1:
+	print("==============relacionales1=============\n");
+	$t167 = $a0+0.0;
+	$t168 = $t167;
+	$t169 = $t168<34.44;
+	if (!$t169) goto if22;
+	$t170 = $a0+15;
+	$a0 = $t170;
+	$t171 = $a0>44;
+	if (!$t171) goto if23;
+	$t172 = $a0+1;
+	$a0 = $t172;
+	print($a0);
+	goto if23;
+
+if23:
+	goto if24;
+
+if22:
+	$a0 = 1;
+	goto if24;
+
+if24:
+	$t173 = $a0!=1;
+	if (!$t173) goto if25;
+	$t174 = $a0==50;
+	if (!$t174) goto if26;
+	print("salida Correcta Relacionales 1!\n");
+	$t175 = $t1+5;
+	$t1 = $t175;
+	goto if27;
+
+if26:
+	print("salida incorrecta!!\n");
+	goto if27;
+
+if27:
+	goto if28;
+
+if25:
+	print("salida incorrecta!!\n");
+	goto if28;
+
+if28:
+	print("======================================\n");
+	goto relaciones1_return_call;
+
+relaciones2:
+	print("============Relacionales2=============\n");
+	$t176 = 10-15;
+	$t177 = $t176>=0;
+	$t178 = 44.44==44.44;
+	$t179 = $t177&&$t178;
+	if (!$t179) goto if29;
+	print("salida incorrecta primer if relacionales2!!\n");
+	goto if32;
+
+if29:
+	$t180 = 15+8;
+	$t181 = 22-10;
+	$t182 = 5*3;
+	$t183 = $t181+$t182;
+	$t184 = $t183-4;
+	$t185 = $t180==$t184;
+	$t186 = 13*0;
+	$t187 = -1;
+	$t188 = $t186>$t187;
+	$t189 = $t185&&$t188;
+	if (!$t189) goto if30;
+	$t190 = 11.0-1.01;
+	$t191 = 10.0!=$t190;
+	if (!$t191) goto if31;
+	print("salida CORRECTA en relacionales2!!\n");
+	$t192 = $t1+5;
+	$t1 = $t192;
+	goto if32;
+
+if31:
+	print("salida incorrecta segundo if relacionales 2!!\n");
+	goto if32;
+
+if32:
+	goto if34;
+
+if30:
+	$t193 = 1==1;
+	if (!$t193) goto if33;
+	print("salida incorrecta relacionales 2 3er if !!\n");
+	goto if34;
+
+if33:
+	print("salida incorrecta relacionales 2 Sino3er if !!\n");
+	goto if34;
+
+if34:
+	goto if35;
+
+if35:
+	goto if36;
+
+if36:
+	print("======================================\n");
+	goto relaciones2_return_call;
+
+Relacionales:
+	$t194 = 34;
+	$t195 = 16;
+	$a0 = $t194;
+	$ra[7] = 0;
+	goto relaciones1;
+
+relaciones1_call_0:
+	$a1 = $t195;
+	$ra[8] = 1;
+	goto relaciones2;
+
+relaciones2_call_0:
+	goto Relacionales_return_call;
+
+_main_:
+	$t196 = 0;
+	print("-----------------CALIFICACION-----------------\n");
+	$t197 = $t196!=0;
+	if (!$t197) goto if37;
+	print("No se toma con prioridad la variable local ante la global\n");
+	print("Perdiste 5 puntos :c\n");
+	goto if38;
+
+if37:
+	$t198 = $t1+5;
+	$t1 = $t198;
+	goto if38;
+
+if38:
+	$ra[0] = 2;
+	goto Declaracion;
+
+Declaracion_call_0:
+	$ra[3] = 3;
+	goto Aritmeticas;
+
+Aritmeticas_call_0:
+	$ra[6] = 4;
+	goto Logicas;
+
+Logicas_call_0:
+	$ra[9] = 5;
+	goto Relacionales;
+
+Relacionales_call_0:
+	print("punteo Final: ");
+	print($t1);
+	print("\n");
+	print("FINNNNNNNN\n");
+	exit;
+
+Declaracion_return_call:
+	if ($ra[0] == 2) goto Declaracion_call_0;
+
+operacionesBasicas_return_call:
+	if ($ra[1] == 0) goto operacionesBasicas_call_0;
+
+operacionesAvanzadas_return_call:
+	if ($ra[2] == 1) goto operacionesAvanzadas_call_0;
+
+Aritmeticas_return_call:
+	if ($ra[3] == 3) goto Aritmeticas_call_0;
+
+Logicas2_return_call:
+	if ($ra[4] == 0) goto Logicas2_call_0;
+
+BitABit_return_call:
+	if ($ra[5] == 1) goto BitABit_call_0;
+
+Logicas_return_call:
+	if ($ra[6] == 4) goto Logicas_call_0;
+
+relaciones1_return_call:
+	if ($ra[7] == 0) goto relaciones1_call_0;
+
+relaciones2_return_call:
+	if ($ra[8] == 1) goto relaciones2_call_0;
+
+Relacionales_return_call:
+	if ($ra[9] == 5) goto Relacionales_call_0;
+

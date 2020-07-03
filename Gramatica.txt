@@ -1,186 +1,188 @@
-<INIT>::=                   <PROGRAM>
+init → program
+init → ε
 
-<PROGRAM>::=		    <PROGRAM> <MAIN>
-			|   <FUNCTION>
-			|   <STRUCT>
+program → main
+program → declars main
 
-                    
-<MAIN>::=                   main ( ) <FUNCTION_BLOCK>
+declars → declars declar
+declars → declar
 
+declar → primitive_type function
+declar → VOID function
+declar → declaration
+declar → assignation
+declar → struct
 
-<FUNCTION>::=               <FUNCTION_TYPE> id <PARAM> <FUNCTION_BLOCK>
+main → MAIN PAR_IZQ PAR_DER function_block
 
+function → function_type ID param function_block
 
-<PARAM>::=		    ( )
-			|   ( <PARAM_LIST> )
+param → PAR_IZQ PAR_DER
+param → PAR_IZQ parameter_list PAR_DER
 
+parameter_list → parameter_list COMA parameter
+parameter_list → parameter
 
-<PARAM_LIST>::=             <PARAM_LIST> , <PARAMETER>
-                        |   <PARAMETER>
+parameter → primitive_type ID
 
+primitive_type → INT
+primitive_type → DOUBLE
+primitive_type → CHAR
+primitive_type → STRUCT ID
 
-<PARAMETER>::=              <PRIMITIVE_TYPE> <IDENTIFIER>
+struct → STRUCT ID struct_block
 
+struct_block → BRA_IZQ declarations BRA_DER
 
-<FUNCTION_TYPE>::=          void
-                        |   <PRIMITIVE_TYPE>
+function_block → BRA_IZQ instructions BRA_DER
+function_block → BRA_IZQ BRA_DER
 
+instructions → instructions instruction
 
-<PRIMITIVE_TYPE>::=         int
-                        |   double
-                        |   float
-                        |   char
+instructions → instruction
+instruction → declaration PUNTO_COMA
+instruction → assignation PUNTO_COMA
+instruction → for
+instruction → while
+instruction → do PUNTO_COMA
+instruction → if
+instruction → switch
+instruction → label
+instruction → goto PUNTO_COMA
+instruction → break PUNTO_COMA
+instruction → continue PUNTO_COMA
+instruction → return PUNTO_COMA
+instruction → expression PUNTO_COMA
+instruction → PUNTO_COMA
 
+declarations → declarations declaration PUNTO_COMA
+declarations → declaration PUNTO_COMA
 
-<FUNCTION_BLOCK>::=                  { <LIST_INSTRUCTIONS> }
+declaration → primitive_type declaration_list
+declaration → ID declaration_list
 
+declaration_list → declaration_list COMA ID IGUAL expression
+declaration_list → declaration_list COMA ID brackets IGUAL BRA_IZQ expression_list BRA_DER
+declaration_list → declaration_list COMA ID
+declaration_list → declaration_list COMA ID brackets
+declaration_list → declaration_list COMA ID COR_IZQ COR_DER IGUAL CADENA
+declaration_list → ID IGUAL expression
+declaration_list → ID brackets IGUAL BRA_IZQ expression_list BRA_DER
+declaration_list → ID
+declaration_list → ID brackets
+declaration_list → ID COR_IZQ COR_DER IGUAL CADENA
 
-<LIST_INSTRUCTIONS>::=      <LIST_INSTRUCTIONS> <INSTRUCTION>
-                        |   <INSTRUCTION>
+identifier → ID
+identifier → ID bracket
 
+brackets → bracket
+brackets → COR_IZQ COR_DER
 
-<INSTRUCTION>::=            <DECLARATION> ;
-                        |   <ASSIGNATION> ;
-                        |   <LABEL>
-                        |   <IF>
-                        |   <SWITCH>
-                        |   <WHILE>
-                        |   <DO>
-                        |   <FOR>
-                        |   <FUNCTION_BLOCK>
-                        |   ;
-                        |   <GOTO>
-                        |   <BREAK>
-                        |   <CONTINUE>
-                        |   <RETURN>
-                        |   <PRINT>
-                        |   <SCAN>
-                        |   <EXPRESSION> ;
+bracket → bracket COR_IZQ expression COR_DER
+bracket → COR_IZQ expression COR_DER
 
-<DECLARATIONS>::=           <DECLARATIONS> <DECLARATION>;
-                        |   <DECLARATION>;
+assignation → identifier equals expression
+assignation → identifier PUNTO ID equals expression
 
-<DECLARATION>::=            <PRIMITIVE_TYPE> <LIST_DECLARATION> 
+equals → IGUAL
+equals → SUMA_IGUAL
+equals → RESTA_IGUAL
+equals → MULT_IGUAL
+equals → DIV_IGUAL
+equals → MOD_IGUAL
+equals → SHIFT_IZQ_IGUAL
+equals → SHIFT_DER_IGUAL
+equals → AND_BIT_IGUAL
+equals → XOR_BIT_IGUAL
+equals → OR_BIT_IGUAL
 
-<LIST_DECLARATION>::=       <LIST_DECLARATION> , id = <EXPRESSION>
-                        |   <LIST_DECLARATION> , id <BRACKETS> = { LIST_EXPRESSIONS }
-                        |   <LIST_DECLARATION> , <IDENTIFIER>
-                        |   id = { <LIST_EXPRESSIONS> }
-                        |   id <BRACKETS> = <EXPRESSION>
-                        |   <IDENTIFIER>
+if → IF PAR_IZQ expression PAR_DER function_block
+if → IF PAR_IZQ expression PAR_DER function_block ELSE if
+if → IF PAR_IZQ expression PAR_DER function_block ELSE function_block
 
-<IDENTIFIER>::=             id <BRACKETS>
-                        |   id
+while → WHILE PAR_IZQ expression PAR_IZQ function_block
 
+do → DO function_block WHILE PAR_IZQ expression PAR_DER
 
-<BRACKETS>::=               <BRACKET> 
-                        |   [ ]
+for → FOR PAR_IZQ for_declaration PUNTO_COMA expression PUNTO_COMA step PAR_DER function_block
 
-<BRACKET>::=                <BRACKET> [ <EXPRESSION> ]
-                        |   [ <EXPRESSION> ]   
+for_declaration → declaration
+for_declaration → assignation
 
+step → assignation
+step → increase
+step → decrease
 
-<ASSIGNATION>::=            <IDENTIFIER> <EQUALS> <EXPRESSION> ;
+switch → SWITCH PAR_IZQ expression PAR_DER BRA_IZQ cases BRA_DER
 
+cases → cases case
+cases → cases default
+cases → case
 
-<EQUALS>		    =
-			|   +=
-			|   -=
-			|   *=
-			|   /=
-			|   %=
-			|   <<=
-			|   >>=
-			|   &=
-			|   ^=	
-			|   |=		
-				    
+case → CASE expression DOS_PUNTOS instructions
 
+default → DEFAULT DOS_PUNTOS instructions
 
-<LABEL>::=                  id :
+label → ID DOS_PUNTOS
 
-<IF>::=                     if ( <EXPRESSION> ) <INSTRUCTION>
-                        |   if ( <EXPRESSION> ) <INSTRUCTION> else <IF>
-                        |   if ( <EXPRESSION> ) <INSTRUCTION> else <INSTRUCTION>
+goto → GOTO ID
 
-<SWITCH>::=                 switch ( <EXPRESSION> ) { <CASE_LIST> }
-                        |   switch ( <EXPRESSION> ) { <CASE_LIST> <DEFAULT> }
+break → BREAK
 
-<CASE_LIST>::=              <CASE_LIST> <CASE>
-                        |   <CASE>
+continue → CONTINUE
 
-<CASE>::=                   case <EXPRESSION> : <LIST_INSTRUCTIONS>
+return → RETURN expression
+return → RETURN
 
-<DEFAULT>::=                default : <LIST_INSTRUCTIONS>
+function_call → ID param_val
 
-<WHILE>::=                  while ( <EXPRESSION> ) <INSTRUCTION>
+param_val → PAR_IZQ PAR_DER
+param_val → PAR_IZQ expression_list PAR_DER
 
-<DO>::=                     do <INSTRUCTION> while ( <EXPRESSION> ) ;
+expression_list → expression_list COMA expression
+expression_list → expression
 
-<FOR>::=                    for ( <DECLARATION_FOR> ; <EXPRESSION> ;  <STEP> ) <INSTRUCTION>
+expression → expression SUMA expression
+expression → expression RESTA expression
+expression → expression MULT expression
+expression → expression DIV expression
+expression → expression MOD expression
+expression → expression AND expression
+expression → expression OR expression
+expression → expression ES_IGUAL expression
+expression → expression NO_IGUAL expression
+expression → expression MENOR_IGUAL expression
+expression → expression MAYOR_IGUAL expression
+expression → expression MENOR expression
+expression → expression MAYOR expression
+expression → expression AND_BIT expression
+expression → expression OR_BIT expression
+expression → expression XOR_BIT expression
+expression → expression SHIFT_IZQ expression
+expression → expression SHIFT_DER expression
+expression → expression INTERROGACION expression DOS_PUNTOS expression
+expression → RESTA expression
+expression → AND_BIT expression
+expression → NOT expression
+expression → NOT_BIT expression
+expression → PAR_IZQ expression PAR_DER
+expression → increase
+expression → decrease
+expression → ENTERO
+expression → DECIMAL
+expression → CARACTER
+expression → CADENA
+expression → function_call
+expression → conversion
+expression → identifier
+expression → identifier PUNTO ID
 
-<STEP>::=                   <ASSIGNATION>
-                        |   <INCREASE>
-                        |   <DECREASE>
+conversion → PAR_IZQ INT PAR_DER expression
+conversion → PAR_IZQ DOUBLE PAR_DER expression
+conversion → PAR_IZQ CHAR PAR_DER expression
 
-<INCREASE>::=               ++ <EXPRESSION>
-                        |   <EXPRESSION> ++
+increase → SUMA_SUMA expression
+increase → expression SUMA_SUMA
 
-<DECREASE>::=               -- <EXPRESSION>
-                        |   <EXPRESSION> --
-
-<NULL>::=                   ;
-
-<GOTO>::=                   goto id ;
-
-<BREAK>::=                  break ;
-
-<CONTINUE>::=               continue ;
-
-<RETURN>::=                 return ;
-                        |   return <EXPRESSION> ;
-                        
-
-<EXPRESSION>::=             <EXPRESSION> + <EXPRESSION>
-                        |   <EXPRESSION> - <EXPRESSION>
-                        |   <EXPRESSION> * <EXPRESSION>
-                        |   <EXPRESSION> / <EXPRESSION>
-                        |   <EXPRESSION> % <EXPRESSION>
-                        |   <EXPRESSION> && <EXPRESSION>
-                        |   <EXPRESSION> || <EXPRESSION>
-                        |   <EXPRESSION> == <EXPRESSION>
-                        |   <EXPRESSION> != <EXPRESSION>
-                        |   <EXPRESSION> <= <EXPRESSION>
-                        |   <EXPRESSION> >= <EXPRESSION>
-                        |   <EXPRESSION> < <EXPRESSION>
-                        |   <EXPRESSION> > <EXPRESSION>
-                        |   <EXPRESSION> & <EXPRESSION>
-                        |   <EXPRESSION> | <EXPRESSION>
-                        |   <EXPRESSION> ^ <EXPRESSION>
-                        |   <EXPRESSION> << <EXPRESSION>
-                        |   <EXPRESSION> >> <EXPRESSION>
-			|   - <EXPRESSION>
-                        |   & <EXPRESSION>
-                        |   ! <EXPRESSION>
-                        |   ~ <EXPRESSION>
-                        |   <INCREASE>
-                        |   <DECREASE>
-			|   <EXPRESSION> ? <EXPRESSION> : <EXPRESSION>
-			|   number
-                        |   decimal
-                        |   char
-                        |   string
-                        |   <FUNCTION_CALL>
-                        |   <CONVERSION>
-                        |   <IDENTIFIER>
-                        |   ( <EXPRESSION> )
-
-<FUNCTION_CALL>::=          id ( <LIST_EXPRESSIONS> )
-                        |   id ( )
-                        |   sizeof ( <EXPRESSION> )
-
-<LIST_EXPRESSIONS>::=       <LIST_EXPRESSIONS> , <EXPRESSION>
-                        |   <EXPRESSION>
-
-<CONVERSION>::=             ( int ) <EXPRESSION>
-                        |   ( float ) <EXPRESSION>
+decrease → RESTA_RESTA expression
+decrease → expression RESTA_RESTA
