@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>Reporte Gramatical</title>
+</head>
+<body bgcolor="black">
+<center><Font size=22 color=darkred>Reporte Gramatical</Font></center>
+<hr >
+<font color=white>
+<center>
+<table border=1 align=center style="width:80%;" >
+<TR bgcolor=darkred>
+<TH  style="font-size: 18px; width:40%; color:white" align=center>Producción</TH>
+<TH  style="font-size: 18px; width:40%; color:white" align=center>Reglas Semánticas</TH>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth>S->etiquetas</TD>
+<TD style="font-size: 15px; color:white;" color:white align=left>&nbsp;</TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>etiquetas -> etiqueta</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>etiquetas.lista = [etiqueta]</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>etiqueta -> ID DOSP instrucciones</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>etiqueta.instrucciones.lista = []; </hr> etiqueta.instrucciones.lista = instrucciones.lista;</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>instruccion -> imprimir_instr</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>instruccion.instr = imprimir_instr.instr;</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>imprimir_instr ->IMPRIMIR PARIZQ tipo_var  PARDER PTCOMA</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>imprimir_instr.instr = Print(tipo_var.val);</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>instruccion -> asignacion</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>instruccion.instr = asignacion.instr;</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>asignacion -> tipo_var IGUAL expresion PTCOMA</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>asignacion.instr = Asignar(tipo_var.val,expresion.val);</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>expresion -> expresion_numerica</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>expresion.val = expresion_numerica.val;</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>expresion_numerica ->  primitiva MAS primitiva</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>expresion_numerica.val = primitiva1.val + primitiva2.val;</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>instruccion -> asignacion</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>instruccion.instr = asignacion.instr;</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>asignacion -> tipo_var IGUAL expresion PTCOMA</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>asignacion.instr = Asignar(tipo_var.val,expresion.val);</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>expresion -> primitiva</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>expresion.val = primitiva.val;</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>instruccion -> asignacion</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>instruccion.instr = asignacion.instr;</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>asignacion -> tipo_var IGUAL expresion PTCOMA</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>asignacion.instr = Asignar(tipo_var.val,expresion.val);</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>expresion -> primitiva</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>expresion.val = primitiva.val;</p></TD>
+</TR>
+<TR>
+<TD style="font-size: 15px; color:white;" color:white align=rigth><p>tipo_var -> TEMP</p></TD>
+<TD style="font-size: 15px; color:white;" color:white align=left><p>tipo_var.val = TEMP;</p></TD>
+</TR>
+
+</center>
+</table></body>
+</html>

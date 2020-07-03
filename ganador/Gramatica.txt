@@ -1,0 +1,186 @@
+<INIT>::=                   <PROGRAM>
+
+<PROGRAM>::=		    <PROGRAM> <MAIN>
+			|   <FUNCTION>
+			|   <STRUCT>
+
+                    
+<MAIN>::=                   main ( ) <FUNCTION_BLOCK>
+
+
+<FUNCTION>::=               <FUNCTION_TYPE> id <PARAM> <FUNCTION_BLOCK>
+
+
+<PARAM>::=		    ( )
+			|   ( <PARAM_LIST> )
+
+
+<PARAM_LIST>::=             <PARAM_LIST> , <PARAMETER>
+                        |   <PARAMETER>
+
+
+<PARAMETER>::=              <PRIMITIVE_TYPE> <IDENTIFIER>
+
+
+<FUNCTION_TYPE>::=          void
+                        |   <PRIMITIVE_TYPE>
+
+
+<PRIMITIVE_TYPE>::=         int
+                        |   double
+                        |   float
+                        |   char
+
+
+<FUNCTION_BLOCK>::=                  { <LIST_INSTRUCTIONS> }
+
+
+<LIST_INSTRUCTIONS>::=      <LIST_INSTRUCTIONS> <INSTRUCTION>
+                        |   <INSTRUCTION>
+
+
+<INSTRUCTION>::=            <DECLARATION> ;
+                        |   <ASSIGNATION> ;
+                        |   <LABEL>
+                        |   <IF>
+                        |   <SWITCH>
+                        |   <WHILE>
+                        |   <DO>
+                        |   <FOR>
+                        |   <FUNCTION_BLOCK>
+                        |   ;
+                        |   <GOTO>
+                        |   <BREAK>
+                        |   <CONTINUE>
+                        |   <RETURN>
+                        |   <PRINT>
+                        |   <SCAN>
+                        |   <EXPRESSION> ;
+
+<DECLARATIONS>::=           <DECLARATIONS> <DECLARATION>;
+                        |   <DECLARATION>;
+
+<DECLARATION>::=            <PRIMITIVE_TYPE> <LIST_DECLARATION> 
+
+<LIST_DECLARATION>::=       <LIST_DECLARATION> , id = <EXPRESSION>
+                        |   <LIST_DECLARATION> , id <BRACKETS> = { LIST_EXPRESSIONS }
+                        |   <LIST_DECLARATION> , <IDENTIFIER>
+                        |   id = { <LIST_EXPRESSIONS> }
+                        |   id <BRACKETS> = <EXPRESSION>
+                        |   <IDENTIFIER>
+
+<IDENTIFIER>::=             id <BRACKETS>
+                        |   id
+
+
+<BRACKETS>::=               <BRACKET> 
+                        |   [ ]
+
+<BRACKET>::=                <BRACKET> [ <EXPRESSION> ]
+                        |   [ <EXPRESSION> ]   
+
+
+<ASSIGNATION>::=            <IDENTIFIER> <EQUALS> <EXPRESSION> ;
+
+
+<EQUALS>		    =
+			|   +=
+			|   -=
+			|   *=
+			|   /=
+			|   %=
+			|   <<=
+			|   >>=
+			|   &=
+			|   ^=	
+			|   |=		
+				    
+
+
+<LABEL>::=                  id :
+
+<IF>::=                     if ( <EXPRESSION> ) <INSTRUCTION>
+                        |   if ( <EXPRESSION> ) <INSTRUCTION> else <IF>
+                        |   if ( <EXPRESSION> ) <INSTRUCTION> else <INSTRUCTION>
+
+<SWITCH>::=                 switch ( <EXPRESSION> ) { <CASE_LIST> }
+                        |   switch ( <EXPRESSION> ) { <CASE_LIST> <DEFAULT> }
+
+<CASE_LIST>::=              <CASE_LIST> <CASE>
+                        |   <CASE>
+
+<CASE>::=                   case <EXPRESSION> : <LIST_INSTRUCTIONS>
+
+<DEFAULT>::=                default : <LIST_INSTRUCTIONS>
+
+<WHILE>::=                  while ( <EXPRESSION> ) <INSTRUCTION>
+
+<DO>::=                     do <INSTRUCTION> while ( <EXPRESSION> ) ;
+
+<FOR>::=                    for ( <DECLARATION_FOR> ; <EXPRESSION> ;  <STEP> ) <INSTRUCTION>
+
+<STEP>::=                   <ASSIGNATION>
+                        |   <INCREASE>
+                        |   <DECREASE>
+
+<INCREASE>::=               ++ <EXPRESSION>
+                        |   <EXPRESSION> ++
+
+<DECREASE>::=               -- <EXPRESSION>
+                        |   <EXPRESSION> --
+
+<NULL>::=                   ;
+
+<GOTO>::=                   goto id ;
+
+<BREAK>::=                  break ;
+
+<CONTINUE>::=               continue ;
+
+<RETURN>::=                 return ;
+                        |   return <EXPRESSION> ;
+                        
+
+<EXPRESSION>::=             <EXPRESSION> + <EXPRESSION>
+                        |   <EXPRESSION> - <EXPRESSION>
+                        |   <EXPRESSION> * <EXPRESSION>
+                        |   <EXPRESSION> / <EXPRESSION>
+                        |   <EXPRESSION> % <EXPRESSION>
+                        |   <EXPRESSION> && <EXPRESSION>
+                        |   <EXPRESSION> || <EXPRESSION>
+                        |   <EXPRESSION> == <EXPRESSION>
+                        |   <EXPRESSION> != <EXPRESSION>
+                        |   <EXPRESSION> <= <EXPRESSION>
+                        |   <EXPRESSION> >= <EXPRESSION>
+                        |   <EXPRESSION> < <EXPRESSION>
+                        |   <EXPRESSION> > <EXPRESSION>
+                        |   <EXPRESSION> & <EXPRESSION>
+                        |   <EXPRESSION> | <EXPRESSION>
+                        |   <EXPRESSION> ^ <EXPRESSION>
+                        |   <EXPRESSION> << <EXPRESSION>
+                        |   <EXPRESSION> >> <EXPRESSION>
+			|   - <EXPRESSION>
+                        |   & <EXPRESSION>
+                        |   ! <EXPRESSION>
+                        |   ~ <EXPRESSION>
+                        |   <INCREASE>
+                        |   <DECREASE>
+			|   <EXPRESSION> ? <EXPRESSION> : <EXPRESSION>
+			|   number
+                        |   decimal
+                        |   char
+                        |   string
+                        |   <FUNCTION_CALL>
+                        |   <CONVERSION>
+                        |   <IDENTIFIER>
+                        |   ( <EXPRESSION> )
+
+<FUNCTION_CALL>::=          id ( <LIST_EXPRESSIONS> )
+                        |   id ( )
+                        |   sizeof ( <EXPRESSION> )
+
+<LIST_EXPRESSIONS>::=       <LIST_EXPRESSIONS> , <EXPRESSION>
+                        |   <EXPRESSION>
+
+<CONVERSION>::=             ( int ) <EXPRESSION>
+                        |   ( float ) <EXPRESSION>
